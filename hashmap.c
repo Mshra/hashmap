@@ -5,20 +5,28 @@
 
 typedef struct {
   int length; // length of the array of h_map
+  int count;  // how much space is left in array.
   int *arr[]; // array of key where each key(pointer) points to value.
 } H_Map;
 
-void insert(H_Map *map, char *key) {}
+int get_index(char *key) { return (FNV_ONEA_64(key) % 16) - 1; }
+
+void insert(char *hash_map[], char *key, int value) {
+  *hash_map[get_index(key)] = value;
+}
 
 int main(int argc, char *argv[]) {
-  int length = 16;
-  int arr[length];
+  char *hash_map[16];
 
-  H_Map *map;
-  insert(map, "bar");
+  insert(hash_map, "bar", 42);
+  insert(hash_map, "bazz", 36);
+  insert(hash_map, "bob", 11);
+  insert(hash_map, "buzz", 7);
+  insert(hash_map, "foo", 10);
+  insert(hash_map, "jane", 100);
+  insert(hash_map, "x", 200);
 
   uint64_t hash = FNV_ONEA_64("bar");
 
-  printf("0x%llx\n and %llu", hash, hash % 16);
   return EXIT_SUCCESS;
 }
