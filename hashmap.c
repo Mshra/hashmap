@@ -3,12 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-  int length; // length of the array of h_map
-  int count;  // how much space is left in array.
-  int *arr[]; // array of key where each key(pointer) points to value.
-} H_Map;
-
 int get_index(char *key) { return (FNV_ONEA_64(key) % 16) - 1; }
 
 void insert(char *hash_map[], char *key, int value) {
