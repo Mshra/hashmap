@@ -1,6 +1,5 @@
 #include "fnv-1a.h"
 #include <stdint.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 int get_index(char *key) { return (FNV_ONEA_64(key) % 16) - 1; }
