@@ -38,34 +38,33 @@ void print_hmap(Hash_Map *hmap) {
 
 void insert(Hash_Map *hmap, char *key, int32_t value) {
   int index = get_index(key, hmap->length);
+  Item tmp = {key, value};
 
   if (index == hmap->length) {
     // make a new array with length( 2 * hmap->length);
     // and elements adjusted to new type of array.
-    Item tmp = {key, value};
+
+    Hash_Map *new_hmap = (Hash_Map *)malloc(sizeof(Item));
+    new_hmap->length = 2 * (hmap->length);
+    allocate_NULL_ITEM(new_hmap, new_hmap->length);
+
+    for (int i = 0; i < hmap->length; i++) {
+      if ((hmap->map[i]).key != (NULL_ITEM.key)) {
+        new_hmap->map[get_index((hmap->map[i]).key, new_hmap->length)] =
+            hmap->map[i];
+      }
+    }
+    insert(new_hmap, key, value);
+  }
+
+  if ((hmap->map[index]).key == NULL) {
+    // linear probing, when collision happens
+  } else {
+    hmap->map[index] = tmp;
   }
 
   // check for linear probing
-  if (sizeof(hmap->map[index]) == sizeof(Item)) {
-    // perform linear probing.
-  } else {
-    // normal insert.
-  }
-}
-
-Hash_Map *new_map(Hash_Map *hmap, Item item) {
-  Hash_Map *new_hmap = (Hash_Map *)malloc(sizeof(Item));
-  new_hmap->length = 2 * hmap->length;
-  allocate_NULL_ITEM(new_hmap, new_hmap->length);
-
-  for (int i = 0; i < hmap->length; i++) {
-    if ((hmap->map[i]).key != (NULL_ITEM.key)) {
-      new_hmap->map[get_index((hmap->map[i]).key, new_hmap->length)] =
-          hmap->map[i];
-    }
-  }
-  insert(new_hmap, item.key, item.value);
-  return new_hmap;
+  // perform linear probing.
 }
 
 Hash_Map *create_hashmap() {
@@ -82,13 +81,18 @@ void delete(Hash_Map *hmap, char *key) {
 int main(int argc, char *argv[]) {
   Hash_Map *hmap = create_hashmap();
 
-  insert(hmap, "bar", 42);
-  // insert(hmap, "jane", 100);
+  // insert(hmap, "bar", 42);
+  insert(hmap, "jane", 100);
+  print_hmap(hmap);
   // insert(hmap, "foo", 10);
   // insert(hmap, "bazz", 36);
   // insert(hmap, "buzz", 7);
   // insert(hmap, "bob", 11);
 
-  print_hmap(hmap);
   return EXIT_SUCCESS;
 }
+
+/*
+ * 1. build for when length == index
+ * 2. add linear probing.
+ */
