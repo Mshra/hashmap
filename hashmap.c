@@ -3,63 +3,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int get_index(char *key) { return (FNV_ONEA_64(key) % 16) - 1; }
+int get_index(char *key) { return (FNV_ONEA_64(key) % 16); }
+//
+// void insert(char *hash_map[], char *key, int value) {
+//   *hash_map[get_index(key)] = value;
+// }
 
-void insert(char *hash_map[], char *key, int value) {
-  *hash_map[get_index(key)] = value;
-}
-
-/*
- * start with an array of 2**0 i.e. 1 element.
- * track the the length of the hashmap
- * if the index of key turns out to be more than the length of the array
- * copy the elements of the array and create a new array with the length of
- * 2**(n+1)
- *
- */
-
-// This struct represents an item with a key-value pair for hash-map.
+// Item is a <key-value> pair of a hash_map
 typedef struct {
-  char *key;    // A pointer to a character string, representing the key
-  size_t value; // An unsigned integer type, representing the value associated
-                // with the key
+  char *key;
+  int32_t value;
 } Item;
 
-// This struct represents a hash-map
-typedef struct {
-  int length;    // The length of the array, indicating the number of items
-  Item *array[]; // A flexible array member for storing pointers to Items
-                 // The size of this array is determined at runtime
-} H_Map;
+const Item NULL_ITEM = {NULL, 0};
 
-H_Map *create_map() {
-  H_Map *map = (H_Map *)malloc(sizeof(H_Map));
-  map->length = 1;
-  map->array[0] = NULL;
-  return map;
+void print_item(Item item) { printf("\t{ %s, %d },\n", item.key, item.value); }
+
+void insert(Item map[], int length, char *key, int32_t value) {
+  Item tmp_item = {key, value};
+  map[get_index(key)] = tmp_item;
 }
 
 int main(int argc, char *argv[]) {
+  int length = 16;
+  Item map[] = {
+      NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM,
+      NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM,
+      NULL_ITEM, NULL_ITEM, NULL_ITEM, NULL_ITEM,
+  };
 
-  H_Map *map = create_map();
-  printf("%d\n", map->array[0]);
+  insert(map, length, "bar", 42);
+  insert(map, length, "jane", 100);
+  insert(map, length, "foo", 10);
+  insert(map, length, "bazz", 36);
+  insert(map, length, "buzz", 7);
+  insert(map, length, "bob", 11);
 
-  if (NULL == 0) {
-    printf("you are insane\n");
+  printf("{\n");
+  for (int i = 0; i < length; i++) {
+    if (sizeof(map[i]) != 16)
+      print_item(NULL_ITEM);
+    else
+      print_item(map[i]);
   }
 
-  // insert(hash_map, "bar", 42);
-  printf("%d\n", get_index("bar"));
-  printf("%d\n", get_index("bazz"));
-  printf("%d\n", get_index("bob"));
-  printf("%d\n", get_index("buzz"));
-  // insert(hash_map, "bazz", 36);
-  // insert(hash_map, "bob", 11);
-  // insert(hash_map, "buzz", 7);
-  // insert(hash_map, "foo", 10);
-  // insert(hash_map, "jane", 100);
-  // insert(hash_map, "x", 200);
+  printf("}\n");
+  printf("hello, world\n");
 
-  free(map);
   return EXIT_SUCCESS;
 }
