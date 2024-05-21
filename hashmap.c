@@ -45,6 +45,10 @@ Hash_Map *create_hashmap(int length) {
   return tmp_map;
 }
 
+void delete(Hash_Map *hmap, char *key) {
+  hmap->map[get_index(key)] = NULL_ITEM;
+}
+
 int main(int argc, char *argv[]) {
   int length = 16;
 
@@ -58,6 +62,5 @@ int main(int argc, char *argv[]) {
   insert(hmap, "bob", 11);
 
   print_hmap(hmap);
-
   return EXIT_SUCCESS;
 }
