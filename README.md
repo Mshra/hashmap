@@ -12,7 +12,7 @@ Programmed the [Hashmap](https://en.wikipedia.org/wiki/Hash_table#:~:text=In%20c
 ---
 **How does it work?**
 
-Started by defining elements of Hashmap as ==Item==.
+Started by defining elements of Hashmap as **Item**.
 
 ```
 typedef struct {
