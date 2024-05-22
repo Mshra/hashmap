@@ -11,6 +11,6 @@ Programmed the [Hashmap](https://en.wikipedia.org/wiki/Hash_table#:~:text=In%20c
     - Print
 ---
 **How does it work?**
-
+Started by defining elements of Hashmap as Item.
 
 [link](https://benhoyt.com/writings/hash-table-in-c/)
