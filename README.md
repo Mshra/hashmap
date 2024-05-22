@@ -14,12 +14,12 @@ Programmed the [Hashmap](https://en.wikipedia.org/wiki/Hash_table#:~:text=In%20c
 
 Started by defining elements of Hashmap as ==Item==.
 
-`
+```
 typedef struct {
   char *key;
   int32_t value;
-  int isEmpty; /* 1 if empty, else 0 */
+  int isEmpty;
 } Item;
-`
+```
 
 [link](https://benhoyt.com/writings/hash-table-in-c/)
