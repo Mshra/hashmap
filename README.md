@@ -14,13 +14,36 @@ Programmed the [Hashmap](https://en.wikipedia.org/wiki/Hash_table#:~:text=In%20c
 ---
 **How does it work?**
 
+## Hashing(FNV-1a) - from wikipedia
+>algorithm fnv-1a is
+>    hash := FNV_offset_basis
+>
+>    for each byte_of_data to be hashed do
+>        hash := hash XOR byte_of_data
+>        hash := hash × FNV_prime
+>
+>    return hash 
+
+We start by defining elements in the Hashmap i.e. A key-value pair and call it **Item**.
+
+---
+## Programming the Hashmap
 ```c
 typedef struct {
   char *key;
   int32_t value;
   int isEmpty;
 } Item;
+```
+Using this, we define a constant called **NULL_ITEM** to avoid handling with garbage values,
+present in the set of Hashmap.
 
+Now creating a Hashmap data type using struct which is defined as
+```c
+typedef struct {
+  int length;
+  Item map[];
+} Hash_Map;
 ```
 
-
+Initiliaze the 
