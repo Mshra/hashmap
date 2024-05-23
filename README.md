@@ -15,14 +15,12 @@ Programmed the [Hashmap](https://en.wikipedia.org/wiki/Hash_table#:~:text=In%20c
 **How does it work?**
 
 ## Hashing(FNV-1a) - from wikipedia
->algorithm fnv-1a is
+algorithm fnv-1a is
 >
 >    hash := FNV_offset_basis
 >
 >    for each byte_of_data to be hashed do
->
 >        hash := hash XOR byte_of_data
->
 >        hash := hash × FNV_prime
 >
 >    return hash 
